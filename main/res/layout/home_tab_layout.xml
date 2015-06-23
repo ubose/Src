@@ -1,0 +1,23 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/tab_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="DEALS OF THE DAY"
+        android:textSize="10sp"
+        android:background="@color/white"
+        android:textColor="@color/blue"
+        android:onClick="loadFragment"
+        />
+    <ImageView
+        android:id="@+id/tab_indicator"
+        android:layout_width="120dp"
+        android:layout_height="10dp"
+        android:background="@drawable/tab_indicator_red"
+        android:layout_gravity="bottom"
+        android:visibility="invisible">
+    </ImageView>
+</LinearLayout>

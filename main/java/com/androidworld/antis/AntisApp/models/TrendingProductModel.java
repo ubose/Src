@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class TrendingProductModel implements IModel {
 
-    public String HeadingText;
+    public String headingText;
 
     public ArrayList<Image> productItemsList;
 }

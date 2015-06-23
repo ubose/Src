@@ -1,34 +1,45 @@
 package com.androidworld.antis.AntisApp.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
+import android.opengl.Visibility;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidworld.antis.AntisApp.R;
+import com.androidworld.antis.AntisApp.fragments.GridViewFragment;
 import com.androidworld.antis.AntisApp.fragments.IFragment;
+import com.androidworld.antis.AntisApp.fragments.ItemViewFragment;
 import com.androidworld.antis.AntisApp.models.HomePageDataModel;
 import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.ProductDisplayCard;
+import com.androidworld.antis.AntisApp.models.TrendingProductModel;
 import com.androidworld.antis.AntisApp.services.NetworkProvider;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends ActionBarActivity implements IFragment {
 
     public final static String Search_text="test1.com.example.diganguly.basichomepg1.Message" ;
 
+    protected GridViewFragment mFragment;
+
     protected NetworkProvider mNetworkProvider;
+
+    protected HomePageDataModel mModel;
 
     String[] SearchValues={"mobile phones","android mobiles","dual sim mobile phones","samsung mobiles"};
     @Override
@@ -42,9 +53,47 @@ public class MainActivity extends ActionBarActivity implements IFragment {
         }
     }
 
+    public void loadFragment(View view){
+        if(this.mFragment == null) {
+            return;
+        }
+        int index = 0;
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.home_tab_section);
+        for(int i = 0; i < linearLayout.getChildCount(); i++){
+            LinearLayout tab = (LinearLayout) linearLayout.getChildAt(i);
+            if(tab.getId() == view.getId()) {
+                index = i;
+            }
+            ImageView imageView = (ImageView) tab.findViewById(R.id.tab_indicator);
+            imageView.setVisibility(View.INVISIBLE);
+        }
+
+        ViewGroup tab = (ViewGroup)view.getParent();
+        ImageView imageView = (ImageView) tab.findViewById(R.id.tab_indicator);
+        imageView.setVisibility(View.VISIBLE);
+
+        //Bundle args = new Bundle();
+        //Button buttonView = (Button) view;
+        //args.putCharSequence(GridViewFragment.ARG_POSITION, buttonView.getText());
+
+        //showFilterDialogue();
+        // this.mFragment.setArguments(args);
+        this.mFragment.initialize(this.mModel.trendingProductModelList.get(index).productItemsList);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.grid_container, this.mFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
     public void updateModel(IModel model) {
 
         if (model instanceof HomePageDataModel) {
+            this.mModel = (HomePageDataModel) model;
+            this.mFragment = new GridViewFragment();
             HomePageDataModel homePageDataModel = (HomePageDataModel) model;
             setContentView(R.layout.activity_home_pg);
 
@@ -106,6 +155,28 @@ public class MainActivity extends ActionBarActivity implements IFragment {
 
                     linearLayout.addView(productLayout);
                 }
+            }
+
+            if(homePageDataModel.trendingProductModelList != null) {
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.home_tab_section);
+                for(int i = 0; i < homePageDataModel.trendingProductModelList.size(); i++) {
+                    TrendingProductModel trendingProductModel = homePageDataModel.trendingProductModelList.get(i);
+                    LinearLayout tab_layout = (LinearLayout) View.inflate(getBaseContext(), R.layout.home_tab_layout, null);
+                    Button button = (Button) tab_layout.findViewById(R.id.tab_button);
+                    button.setText(trendingProductModel.headingText);
+                    if(i == 0) {
+                        ImageView imageView = (ImageView) tab_layout.findViewById(R.id.tab_indicator);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                    linearLayout.addView(tab_layout);
+                }
+
+                //inflate the fragment
+                this.mFragment.initialize(this.mModel.trendingProductModelList.get(0).productItemsList);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.grid_container, this.mFragment)
+                        .commit();
             }
         }
     }

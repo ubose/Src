@@ -60,8 +60,8 @@ public class HomePageDataTransformer implements IGenerator{
 
     private TrendingProductModel getTrendingProductModel(String headingText){
         TrendingProductModel trendingProductModel = new TrendingProductModel();
-        trendingProductModel.HeadingText = headingText;
-        trendingProductModel.productItemsList = new ArrayList<Image>();
+        trendingProductModel.headingText = headingText;
+        trendingProductModel.productItemsList = new ArrayList<>();
         trendingProductModel.productItemsList.add(new Image("http://blogs-images.forbes.com/gordonkelly/files/2014/03/P1060987.jpg"));
         trendingProductModel.productItemsList.add(new Image("http://blogs-images.forbes.com/gordonkelly/files/2014/03/P1060987.jpg"));
         trendingProductModel.productItemsList.add(new Image("http://blogs-images.forbes.com/gordonkelly/files/2014/03/P1060987.jpg"));

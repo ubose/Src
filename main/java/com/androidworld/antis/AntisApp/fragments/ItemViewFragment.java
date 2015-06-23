@@ -12,7 +12,6 @@ import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.fragments.adapters.GenericListAdapter;
 import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
-import com.androidworld.antis.AntisApp.models.transformers.PhoneInfoDisplayCardGenerator;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class ItemViewFragment extends Fragment implements IFragment  {
             return rootView;
         }
 
-        this.mItemList = PhoneInfoDisplayCardGenerator.generateDummyModel(null);
+        //this.mItemList = PhoneInfoDisplayCardGenerator.generateDummyModel(null);
         GenericListAdapter adapter = new GenericListAdapter(activity, this.mItemList);
         listView.setAdapter(adapter);
         return rootView;
