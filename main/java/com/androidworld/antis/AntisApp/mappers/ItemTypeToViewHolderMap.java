@@ -1,6 +1,7 @@
 package com.androidworld.antis.AntisApp.mappers;
 
 import com.androidworld.antis.AntisApp.fragments.viewholders.PhoneDisplayCardViewHolder;
+import com.androidworld.antis.AntisApp.fragments.viewholders.SearchPageViewHolder;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class ItemTypeToViewHolderMap {
     public static final Map<String, Class> ITEM_TYPE_TO_VIEW_HOLDER_MAP = new HashMap<String, Class>() {
         {
             put("PhoneInfoDisplayCard", PhoneDisplayCardViewHolder.class);
+            put("searchpageDataModel", SearchPageViewHolder.class);
         }
     };
 

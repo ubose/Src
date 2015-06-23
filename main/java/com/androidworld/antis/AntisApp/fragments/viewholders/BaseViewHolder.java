@@ -55,6 +55,10 @@ public class BaseViewHolder {
                 .into(viewHolderItem);
     }
 
+    public void setButtonView(TextView viewHolderItem, CharSequence textValue){
+        viewHolderItem.setText(textValue);
+    }
+
     //http://3.bp.blogspot.com/-JqKMEYHEfjY/UfvZcNdwbII/AAAAAAAAM2c/JDPO2Uke1LU/s1600/ScreenLock.png
     //http://www.androidcentral.com/sites/androidcentral.com/files/styles/xlarge_wm_brw/public/article_images/2015/02/galaxy-s6-edge-full-front-angle-2-9zh2jqc.jpg
 }

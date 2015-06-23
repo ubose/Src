@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&#xf007;"
+                android:paddingRight="10dp"
+                android:textSize="40sp"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/ic_User"/>
+            <TextView
+                android:layout_toRightOf="@+id/ic_User"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ic_User"
+                android:text="Content to be set dynamically"
+                android:id="@+id/txt_User"/>
+        </RelativeLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <AutoCompleteTextView
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:id="@+id/inputSearch"
+            android:hint=" eg.Samsung S6"
+            android:inputType="textVisiblePassword"
+            android:gravity="center_vertical"
+            android:outlineProvider="background"
+            android:password="false"
+            android:phoneNumber="false"
+            android:selectAllOnFocus="true"
+            android:singleLine="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@color/white"
+            />
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:src="@drawable/ic_search"
+            android:gravity="center_horizontal"
+            android:background="@color/white"
+            />
+
+        </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp">
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YES, CONTINUE"
+            android:background="@color/transparent"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            android:id="@+id/continue_src2"/>
+        <Button
+            android:padding="10dp"
+            android:layout_toLeftOf="@+id/continue_src2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NOTHING SPECIFIC"
+            android:background="@color/transparent"
+            android:textColor="@color/button_material_light"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:id="@+id/nothanks_src2"/>
+    </RelativeLayout>
+</LinearLayout>

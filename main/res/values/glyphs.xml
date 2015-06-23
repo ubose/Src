@@ -3,4 +3,5 @@
     <item name="glyph_save_button" type="string">&#xf004;</item>
     <item name="glyph_reject_button" type="string">&#xf05e;</item>
     <item name="glyph_compare_button" type="string">&#xf0dc;</item>
+    <item name="glyph_user" type="string">&#xf007;</item>
 </resources>

@@ -4,6 +4,7 @@ import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.Image;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.models.PhoneInfoDisplayCard;
+import com.androidworld.antis.AntisApp.models.SearchpageDataModel;
 
 import org.json.JSONObject;
 
@@ -20,8 +21,15 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
 
     public static ArrayList<ItemViewModel> generateDummyModel(JSONObject object) {
 
-        //samsung s6
         ArrayList<PhoneInfoDisplayCard> itemList = new ArrayList<PhoneInfoDisplayCard>();
+        SearchpageDataModel searchpageDataModel = new SearchpageDataModel();
+        searchpageDataModel.userName ="Adi";
+        searchpageDataModel.message = searchpageDataModel.userName +", welcome to Antis buying experience. We help you to make informed choices.To Start with do you have any specific model in mind";
+        searchpageDataModel.firstButtonText = "Nothing specific";
+        searchpageDataModel.secondButtonText = "Yes, continue";
+
+        //samsung s6
+
         PhoneInfoDisplayCard ph = new PhoneInfoDisplayCard();
         ph.headingText = "Samsung Galaxy S6 Edge";
         ph.priceTag = "Rs 60,000";
@@ -55,6 +63,8 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
         itemList.add(ph);
 
         ArrayList<ItemViewModel> modelList = new ArrayList<ItemViewModel>();
+        ItemViewModel itemViewModel = new ItemViewModel(searchpageDataModel, "searchpageDataModel", "");
+        modelList.add(itemViewModel);
         for(int i = 0; i < itemList.size(); i++) {
             //Actual implementation : Parse json object
             PhoneInfoDisplayCard phoneInfoDisplayCard = itemList.get(i);
@@ -77,7 +87,7 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
             phoneInfoDisplayCard.isRejected = false;
             //phoneInfoDisplayCard.phoneImage = phoneInfoDisplayCard.phoneImage;
 
-            ItemViewModel itemViewModel = new ItemViewModel(phoneInfoDisplayCard, "PhoneInfoDisplayCard", "");
+            itemViewModel = new ItemViewModel(phoneInfoDisplayCard, "PhoneInfoDisplayCard", "");
             modelList.add(itemViewModel);
         }
 
