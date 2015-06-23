@@ -62,7 +62,6 @@ public class ItemListActivity extends FragmentActivity implements IFragment {
             textView.setText(productListDataModel.headerDisplayText);
 
             if (productListDataModel.filtersList != null) {
-                LayoutInflater layoutInflater = LayoutInflater.from(this);
                 LinearLayout filterLayout = (LinearLayout) findViewById(R.id.filter_zone);
                 for (int i = 0; i < productListDataModel.filtersList.size(); i+=2) {
                     if (i + 1 < productListDataModel.filtersList.size()) {

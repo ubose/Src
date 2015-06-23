@@ -9,9 +9,11 @@ public class ProductDisplayCard implements IModel {
     
     public Image productImage;
 
+    public String imageDisplayText;
+
     public String saveCount;
 
-    public String SaveDisplayText;
+    public String saveDisplayText;
 
     public String rejectCount;
 

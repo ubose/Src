@@ -11,11 +11,11 @@ public class HomePageDataModel implements IModel {
 
     public String headerText2;
 
-    public String getHeaderText3;
+    public String headerText3;
 
     public ArrayList<String> productList;
 
-    public ArrayList<ProductDisplayCard> productDisplayCard;
+    public ArrayList<ProductDisplayCard> productDisplayCardList;
 
-    public ArrayList<TrendingProductModel> trendingProductModel;
+    public ArrayList<TrendingProductModel> trendingProductModelList;
 }
