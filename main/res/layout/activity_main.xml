@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/container">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="102dp">
+
+        <TextView
+            android:id="@+id/phone_count"
+            android:background="@color/orange"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:text=""
+            android:textSize="@dimen/abc_action_bar_default_height_material"
+            android:gravity="center_horizontal|bottom"
+            />
+        <TextView
+            android:id="@+id/phone_display_text"
+            android:layout_below="@+id/phone_count"
+            android:layout_width="100dp"
+            android:layout_height="32dp"
+            android:background="@color/orange"
+            android:text=""
+            android:gravity="center_horizontal|top"
+            android:textAllCaps="true"
+            android:textSize="17dp"
+            android:textColor="@color/white"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="102dp">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scroll_viewer"
+                android:scrollbarSize="4dp"
+                android:scrollbarStyle="outsideOverlay">
+                     <LinearLayout
+                        android:id="@+id/filter_zone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+            </HorizontalScrollView>
+        <View
+            android:id="@+id/separator_line"
+            android:layout_below="@+id/scroll_viewer"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray"
+            >
+        </View>
+        </RelativeLayout>
+    </LinearLayout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
