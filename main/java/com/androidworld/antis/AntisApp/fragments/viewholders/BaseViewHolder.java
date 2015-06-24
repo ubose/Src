@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.models.Image;
+import com.androidworld.antis.AntisApp.utilities.ApplicationUtilities;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
 import com.squareup.picasso.Picasso;
 
@@ -49,10 +50,7 @@ public class BaseViewHolder {
             return;
         }
 
-        Picasso.with(this.mContext)
-                .load(image.src)
-                .fit()
-                .into(viewHolderItem);
+        ApplicationUtilities.setImageView(this.mContext, viewHolderItem, image.src);
     }
 
     public void setButtonView(TextView viewHolderItem, CharSequence textValue){

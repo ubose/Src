@@ -20,6 +20,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="HOW CAN I HELP YOU?"
+                android:textAllCaps="true"
                 android:textColor="@color/orange"/>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,6 +59,7 @@
                 android:id="@+id/heading_text2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="true"
                 android:text="START OFF WHERE YOU LEFT"
                 android:textColor="@color/orange"/>
 
@@ -85,6 +87,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="BROWSE"
+                android:textAllCaps="true"
                 android:textColor="@color/orange"/>
             <HorizontalScrollView
                 android:layout_width="wrap_content"

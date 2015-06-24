@@ -1,7 +1,9 @@
 package com.androidworld.antis.AntisApp.fragments.viewholders;
 
+import android.app.ActionBar;
 import android.graphics.Typeface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +44,8 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
 
     private Typeface mFont;
 
+    private View mView;
+
     public PhoneDisplayCardViewHolder(View view) {
         if(view != null) {
             this.mHeadingText = (TextView) view.findViewById(R.id.heading_text);
@@ -54,6 +58,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
             this.mSaveButton = (ToggleButton) view.findViewById(R.id.save_button);
             this.mRejectButton = (ToggleButton) view.findViewById(R.id.reject_button);
             this.mCompareButton = (Button) view.findViewById(R.id.compare_button);
+            this.mView = view;
         }
     }
 
@@ -140,6 +145,8 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
                     toggleButton.setTextColor(mContext.getResources().getColor(R.color.red));
                     mSaveButton.setTextColor(mContext.getResources().getColor(R.color.gray));
                     mSaveButton.setChecked(true);
+//                    mView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 0));
+//                    mView.setVisibility(View.INVISIBLE);
                 } else {
                     phoneInfoDisplayCard.isRejected = false;
                     toggleButton.setTextColor(mContext.getResources().getColor(R.color.gray));

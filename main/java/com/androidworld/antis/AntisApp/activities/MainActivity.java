@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +29,12 @@ import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.ProductDisplayCard;
 import com.androidworld.antis.AntisApp.models.TrendingProductModel;
 import com.androidworld.antis.AntisApp.services.NetworkProvider;
+import com.androidworld.antis.AntisApp.utilities.ApplicationUtilities;
 import com.squareup.picasso.Picasso;
+
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
 
 
 public class MainActivity extends ActionBarActivity implements IFragment {
@@ -40,6 +46,8 @@ public class MainActivity extends ActionBarActivity implements IFragment {
     protected NetworkProvider mNetworkProvider;
 
     protected HomePageDataModel mModel;
+
+    protected HashMap<String, TrendingProductModel> mFragmentDataMap;
 
     String[] SearchValues={"mobile phones","android mobiles","dual sim mobile phones","samsung mobiles"};
     @Override
@@ -54,16 +62,9 @@ public class MainActivity extends ActionBarActivity implements IFragment {
     }
 
     public void loadFragment(View view){
-        if(this.mFragment == null) {
-            return;
-        }
-        int index = 0;
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.home_tab_section);
         for(int i = 0; i < linearLayout.getChildCount(); i++){
-            LinearLayout tab = (LinearLayout) linearLayout.getChildAt(i);
-            if(tab.getId() == view.getId()) {
-                index = i;
-            }
+            FrameLayout tab = (FrameLayout) linearLayout.getChildAt(i);
             ImageView imageView = (ImageView) tab.findViewById(R.id.tab_indicator);
             imageView.setVisibility(View.INVISIBLE);
         }
@@ -71,22 +72,16 @@ public class MainActivity extends ActionBarActivity implements IFragment {
         ViewGroup tab = (ViewGroup)view.getParent();
         ImageView imageView = (ImageView) tab.findViewById(R.id.tab_indicator);
         imageView.setVisibility(View.VISIBLE);
+        String buttonId = (String) view.getTag();
 
-        //Bundle args = new Bundle();
-        //Button buttonView = (Button) view;
-        //args.putCharSequence(GridViewFragment.ARG_POSITION, buttonView.getText());
-
-        //showFilterDialogue();
-        // this.mFragment.setArguments(args);
-        this.mFragment.initialize(this.mModel.trendingProductModelList.get(index).productItemsList);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.grid_container, this.mFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        if(this.mFragmentDataMap != null &&  this.mFragmentDataMap.containsKey(buttonId)) {
+            GridViewFragment gridViewFragment = new GridViewFragment();
+            gridViewFragment.initialize(this.mFragmentDataMap.get(buttonId).productItemsList);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.grid_container, gridViewFragment);
+            //transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
     public void updateModel(IModel model) {
@@ -94,6 +89,7 @@ public class MainActivity extends ActionBarActivity implements IFragment {
         if (model instanceof HomePageDataModel) {
             this.mModel = (HomePageDataModel) model;
             this.mFragment = new GridViewFragment();
+            this.mFragmentDataMap = new HashMap<>();
             HomePageDataModel homePageDataModel = (HomePageDataModel) model;
             setContentView(R.layout.activity_home_pg);
 
@@ -150,7 +146,7 @@ public class MainActivity extends ActionBarActivity implements IFragment {
                     if(productDisplayCard.productImage != null) {
                         //TODO: fallback image
                         ImageView imageView = (ImageView) productLayout.findViewById(R.id.product_image);
-                        Picasso.with(this).load(productDisplayCard.productImage.src).fit().into(imageView);
+                        ApplicationUtilities.setImageView(this, imageView, productDisplayCard.productImage.src);
                     }
 
                     linearLayout.addView(productLayout);
@@ -161,9 +157,11 @@ public class MainActivity extends ActionBarActivity implements IFragment {
                 LinearLayout linearLayout = (LinearLayout) findViewById(R.id.home_tab_section);
                 for(int i = 0; i < homePageDataModel.trendingProductModelList.size(); i++) {
                     TrendingProductModel trendingProductModel = homePageDataModel.trendingProductModelList.get(i);
-                    LinearLayout tab_layout = (LinearLayout) View.inflate(getBaseContext(), R.layout.home_tab_layout, null);
-                    Button button = (Button) tab_layout.findViewById(R.id.tab_button);
+                    this.mFragmentDataMap.put(trendingProductModel.id, trendingProductModel);
+                    FrameLayout tab_layout = (FrameLayout) View.inflate(getBaseContext(), R.layout.home_tab_layout, null);
+                    TextView button = (TextView) tab_layout.findViewById(R.id.tab_button);
                     button.setText(trendingProductModel.headingText);
+                    button.setTag(trendingProductModel.id);
                     if(i == 0) {
                         ImageView imageView = (ImageView) tab_layout.findViewById(R.id.tab_indicator);
                         imageView.setVisibility(View.VISIBLE);
@@ -173,10 +171,7 @@ public class MainActivity extends ActionBarActivity implements IFragment {
 
                 //inflate the fragment
                 this.mFragment.initialize(this.mModel.trendingProductModelList.get(0).productItemsList);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.grid_container, this.mFragment)
-                        .commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.grid_container, this.mFragment).commit();
             }
         }
     }
@@ -188,6 +183,7 @@ public class MainActivity extends ActionBarActivity implements IFragment {
         intent.putExtra(Search_text,S_text);
         startActivity(intent);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

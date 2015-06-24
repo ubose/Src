@@ -11,7 +11,7 @@
         android:id="@+id/heroimage"
         android:layout_width="fill_parent"
         android:layout_height="220dp"
-        android:background="@color/silver"/>
+        android:background="@color/gray"/>
 
         <TextView
         android:id="@+id/price_tag"

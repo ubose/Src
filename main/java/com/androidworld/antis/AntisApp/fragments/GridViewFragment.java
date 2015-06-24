@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.Image;
+import com.androidworld.antis.AntisApp.utilities.ApplicationUtilities;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,10 +50,10 @@ public class GridViewFragment extends Fragment implements IFragment {
             Image image2 = this.mItemList.get(i+1);
             View gridLayout = inflater.inflate(R.layout.trending_images_layout, container, false);
             ImageView imageView = (ImageView) gridLayout.findViewById(R.id.first_image);
-            Picasso.with(getActivity()).load(image1.src).fit().into(imageView);
-
+            ApplicationUtilities.setImageView(getActivity(), imageView, image1.src);
             imageView = (ImageView) gridLayout.findViewById(R.id.second_image);
-            Picasso.with(getActivity()).load(image2.src).fit().into(imageView);
+            ApplicationUtilities.setImageView(getActivity(), imageView, image2.src);
+            ApplicationUtilities.setImageView(getActivity(), imageView, image2.src);
             rootView.addView(gridLayout);
         }
 
