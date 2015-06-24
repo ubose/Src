@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidworld.antis.AntisApp.R;
+import com.androidworld.antis.AntisApp.fragments.adapters.GenericListAdapter;
 import com.androidworld.antis.AntisApp.models.Image;
 import com.androidworld.antis.AntisApp.utilities.ApplicationUtilities;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
@@ -19,8 +20,11 @@ public class BaseViewHolder {
 
     protected Context mContext;
 
-    public void inflateItem(Object item, Context context) {
+    protected GenericListAdapter mAdapter;
+
+    public void inflateItem(Object item, Context context, GenericListAdapter genericListAdapter) {
         this.mContext = context;
+        this.mAdapter = genericListAdapter;
         inflateItem(item);
     }
 

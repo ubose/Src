@@ -66,7 +66,7 @@ public class GenericListAdapter extends ArrayAdapter<ItemViewModel> {
 
         BaseViewHolder viewHolder = (BaseViewHolder) view.getTag();
         if (null != viewHolder) {
-            viewHolder.inflateItem(item, this.mContext);
+            viewHolder.inflateItem(item, this.mContext, this);
         }
 
         return view;

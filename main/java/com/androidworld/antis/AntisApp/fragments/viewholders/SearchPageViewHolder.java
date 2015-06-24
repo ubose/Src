@@ -21,6 +21,8 @@ public class SearchPageViewHolder extends BaseViewHolder {
     private Button mContinueBtn;
     private Button mNoThanksBtn;
     private Typeface mFont;
+    private View.OnClickListener mContinueButtonListner;
+    private View.OnClickListener mCancelButtonListner;
 
     public SearchPageViewHolder(View view) {
         if(view != null) {
@@ -37,7 +39,7 @@ public class SearchPageViewHolder extends BaseViewHolder {
             return;
         }
 
-        ItemViewModel itemViewModel = (ItemViewModel) item;
+        final ItemViewModel itemViewModel = (ItemViewModel) item;
         if(!(itemViewModel.item instanceof SearchpageDataModel)) {
             return;
         }
@@ -51,6 +53,39 @@ public class SearchPageViewHolder extends BaseViewHolder {
         setButtonView(this.mContinueBtn, searchpageDataModel.secondButtonText);
         setButtonView(this.mNoThanksBtn, searchpageDataModel.firstButtonText);
         this.mUserIcon.setTypeface(this.mFont);
+        this.mContinueBtn.setOnClickListener(getContinueButtonListner(itemViewModel));
+        this.mNoThanksBtn.setOnClickListener(getCancelButtonListner(itemViewModel));
+    }
+
+    private View.OnClickListener getContinueButtonListner(final ItemViewModel itemViewModel){
+        if(this.mContinueButtonListner == null) {
+            this.mContinueButtonListner = new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    removeItem(itemViewModel);
+                }
+            };
+        }
+
+        return this.mContinueButtonListner;
+    }
+
+    private View.OnClickListener getCancelButtonListner(final ItemViewModel itemViewModel){
+        if(this.mCancelButtonListner == null) {
+            this.mCancelButtonListner = new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    removeItem(itemViewModel);
+                }
+            };
+        }
+
+        return this.mCancelButtonListner;
+    }
+
+    private final void removeItem(final ItemViewModel item){
+        this.mAdapter.remove(item);
+        this.mAdapter.notifyDataSetChanged();
     }
 
 }

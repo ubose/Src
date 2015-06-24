@@ -8,4 +8,5 @@
     <string name="button_send">Send</string>
     <string name="app_label">BasicHomePG</string>search_title
     <string name="search_title">Looking For ..</string>
+    <string name="warning_display_message">You have rejected %s, we will hide this item going ahead.</string>
 </resources>

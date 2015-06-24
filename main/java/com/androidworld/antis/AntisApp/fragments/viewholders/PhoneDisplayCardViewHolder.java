@@ -5,7 +5,9 @@ import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
@@ -14,6 +16,8 @@ import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.models.PhoneInfoDisplayCard;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -69,7 +73,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
             return;
         }
 
-        ItemViewModel itemViewModel = (ItemViewModel) item;
+        final ItemViewModel  itemViewModel = (ItemViewModel) item;
         if(!(itemViewModel.item instanceof PhoneInfoDisplayCard)) {
             return;
         }
@@ -87,7 +91,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
         setLinearLayoutItems(this.mFeatureSectionList, phoneInfoDisplayCard.featureList);
         setLinearLayoutItems(this.mUserRatingList, phoneInfoDisplayCard.userReviewList);
         setSaveButton(phoneInfoDisplayCard.isSaved, phoneInfoDisplayCard);
-        setIgnoreButton(phoneInfoDisplayCard.isRejected, phoneInfoDisplayCard);
+        setIgnoreButton(phoneInfoDisplayCard.isRejected, phoneInfoDisplayCard, itemViewModel);
         setCompareButton();
     }
 
@@ -122,7 +126,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
         });
     }
 
-    private void setIgnoreButton(boolean isIgnored, final PhoneInfoDisplayCard phoneInfoDisplayCard) {
+    private void setIgnoreButton(boolean isIgnored, final PhoneInfoDisplayCard phoneInfoDisplayCard, final ItemViewModel item) {
         this.mRejectButton.setTypeface(this.mFont);
         boolean checked = true;
         int ignoreColor = R.color.gray;
@@ -145,14 +149,64 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
                     toggleButton.setTextColor(mContext.getResources().getColor(R.color.red));
                     mSaveButton.setTextColor(mContext.getResources().getColor(R.color.gray));
                     mSaveButton.setChecked(true);
-//                    mView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 0));
-//                    mView.setVisibility(View.INVISIBLE);
+                    showWarningMessage(phoneInfoDisplayCard.headingText, item, toggleButton);
                 } else {
                     phoneInfoDisplayCard.isRejected = false;
                     toggleButton.setTextColor(mContext.getResources().getColor(R.color.gray));
                 }
             }
         });
+    }
+
+    private void showWarningMessage(String itemName, final ItemViewModel item, final ToggleButton toggleButton){
+        LinearLayout overlay_layout = (LinearLayout) View.inflate(this.mContext, R.layout.semi_transparent_overlay_layout, null);
+        overlay_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do nothing;
+            }
+        });
+
+        LinearLayout linearLayout = (LinearLayout) View.inflate(this.mContext, R.layout.message_popup_layout, null);
+        String displayText = String.format("You have rejected %s, we will hide this item going ahead.", itemName);
+        TextView textView = (TextView) linearLayout.findViewById(R.id.display_message);
+        textView.setText(displayText);
+        textView = (TextView) linearLayout.findViewById(R.id.user_icon);
+        textView.setTypeface(this.mFont);
+        Button button = (Button) linearLayout.findViewById(R.id.button1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeWarningMessageViews();
+                removeItem(item);
+            }
+        });
+
+        button = (Button) linearLayout.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeWarningMessageViews();
+                toggleButton.setTextColor(mContext.getResources().getColor(R.color.gray));
+                toggleButton.setChecked(true);
+            }
+        });
+
+        FrameLayout frameLayout = (FrameLayout) this.mView;
+        frameLayout.addView(overlay_layout);
+        frameLayout.addView(linearLayout);
+    }
+
+    private void removeWarningMessageViews() {
+        FrameLayout frameLayout = (FrameLayout) this.mView;
+        int total = frameLayout.getChildCount();
+        frameLayout.removeViewAt(total - 1);
+        frameLayout.removeViewAt(total - 2);
+    }
+
+    private final void removeItem(final ItemViewModel item){
+        this.mAdapter.remove(item);
+        this.mAdapter.notifyDataSetChanged();
     }
 
 
