@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="150dp"
+    android:layout_width="match_parent" android:layout_height="100dp"
     android:layout_margin="10dp"
-    android:background="@color/background_floating_material_light"
+    android:background="@color/gray"
     android:orientation="vertical">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="70dp"
-        android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:src="@drawable/abc_btn_radio_material"
-            android:layout_gravity="top"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xf007;"
+            android:paddingRight="10dp"
+            android:textSize="40sp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/ic_User_sug"/>
+        <TextView
+            android:layout_toRightOf="@+id/ic_User_sug"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ic_User_sug"
             android:text="Content to be set dynamically"
-            android:id="@+id/User"/>
-        </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-    <LinearLayout
-        android:layout_width="match_parent" android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <Space
-            android:layout_width="250dp"
-            android:layout_height="match_parent" />
+            android:id="@+id/txt_User_sug"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/txt_User_sug"
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DISMISS"
-            android:background="@color/transparent"
-            android:textColor="@color/orange"
-            android:textStyle="bold"
-            android:textSize="10sp"
-            android:id="@+id/cancel_sug"/>
-    </LinearLayout>
+            >
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="8"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="DISMISS"
+                android:background="@color/transparent"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/cancel_sug"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
 
 
 

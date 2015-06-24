@@ -5,6 +5,7 @@ import com.androidworld.antis.AntisApp.models.Image;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.models.PhoneInfoDisplayCard;
 import com.androidworld.antis.AntisApp.models.SearchpageDataModel;
+import com.androidworld.antis.AntisApp.models.SuggestionDataModel;
 
 import org.json.JSONObject;
 
@@ -19,14 +20,28 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
         return null;
     }
 
+    private static String UsrName="Adi" ;//Note user will not change for thr phone displat card
+
     public static ArrayList<ItemViewModel> generateDummyModel(JSONObject object) {
 
+
         ArrayList<PhoneInfoDisplayCard> itemList = new ArrayList<PhoneInfoDisplayCard>();
+        //SearchPageDataModel
         SearchpageDataModel searchpageDataModel = new SearchpageDataModel();
-        searchpageDataModel.userName ="Adi";
+        searchpageDataModel.userName = UsrName;
         searchpageDataModel.message = searchpageDataModel.userName +", welcome to Antis buying experience. We help you to make informed choices.To Start with do you have any specific model in mind";
         searchpageDataModel.firstButtonText = "Nothing specific";
         searchpageDataModel.secondButtonText = "Yes, continue";
+
+        //Suggestion page
+        SuggestionDataModel suggestionDataModel= new SuggestionDataModel();
+        suggestionDataModel.userName=UsrName;
+        suggestionDataModel.firstButtonText="DISMISS";
+        suggestionDataModel.itemType="phones ";//to be derived later
+        suggestionDataModel.noMatched="2 ";
+        suggestionDataModel.searchedItem= "Samsung Galaxy S6";//to be derived later
+
+        suggestionDataModel.message=suggestionDataModel.userName+", there are "+suggestionDataModel.noMatched+suggestionDataModel.itemType+"similar to "+suggestionDataModel.searchedItem+" in terms of price , features and brand value.";
 
         //samsung s6
 
@@ -63,8 +78,10 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
         itemList.add(ph);
 
         ArrayList<ItemViewModel> modelList = new ArrayList<ItemViewModel>();
-        ItemViewModel itemViewModel = new ItemViewModel(searchpageDataModel, "searchpageDataModel", "");
-        modelList.add(itemViewModel);
+        ItemViewModel itemViewModelSrc = new ItemViewModel(searchpageDataModel, "searchpageDataModel", "");
+        ItemViewModel itemViewModelSugg = new ItemViewModel(suggestionDataModel, "suggestionDataModel", "");
+        modelList.add(itemViewModelSrc);
+        modelList.add(itemViewModelSugg);
         for(int i = 0; i < itemList.size(); i++) {
             //Actual implementation : Parse json object
             PhoneInfoDisplayCard phoneInfoDisplayCard = itemList.get(i);
@@ -87,7 +104,7 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
             phoneInfoDisplayCard.isRejected = false;
             //phoneInfoDisplayCard.phoneImage = phoneInfoDisplayCard.phoneImage;
 
-            itemViewModel = new ItemViewModel(phoneInfoDisplayCard, "PhoneInfoDisplayCard", "");
+            ItemViewModel itemViewModel = new ItemViewModel(phoneInfoDisplayCard, "PhoneInfoDisplayCard", "");
             modelList.add(itemViewModel);
         }
 
