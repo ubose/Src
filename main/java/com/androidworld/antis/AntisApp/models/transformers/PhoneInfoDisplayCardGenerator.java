@@ -5,7 +5,7 @@ import com.androidworld.antis.AntisApp.models.Image;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.models.PhoneInfoDisplayCard;
 import com.androidworld.antis.AntisApp.models.SearchpageDataModel;
-import com.androidworld.antis.AntisApp.models.SuggestionDataModel;
+import com.androidworld.antis.AntisApp.models.MessageBoxDataModel;
 
 import org.json.JSONObject;
 
@@ -34,14 +34,8 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
         searchpageDataModel.secondButtonText = "Yes, continue";
 
         //Suggestion page
-        SuggestionDataModel suggestionDataModel= new SuggestionDataModel();
-        suggestionDataModel.userName=UsrName;
-        suggestionDataModel.firstButtonText="DISMISS";
-        suggestionDataModel.itemType="phones ";//to be derived later
-        suggestionDataModel.noMatched="2 ";
-        suggestionDataModel.searchedItem= "Samsung Galaxy S6";//to be derived later
-
-        suggestionDataModel.message=suggestionDataModel.userName+", there are "+suggestionDataModel.noMatched+suggestionDataModel.itemType+"similar to "+suggestionDataModel.searchedItem+" in terms of price , features and brand value.";
+        //MessageBoxDataModel messageBoxDataModel = new MessageBoxDataModel();
+        //messageBoxDataModel.message= "there are %s items we found based on your search.";
 
         //samsung s6
 
@@ -79,9 +73,9 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
 
         ArrayList<ItemViewModel> modelList = new ArrayList<ItemViewModel>();
         ItemViewModel itemViewModelSrc = new ItemViewModel(searchpageDataModel, "searchpageDataModel", "");
-        ItemViewModel itemViewModelSugg = new ItemViewModel(suggestionDataModel, "suggestionDataModel", "");
+        //ItemViewModel itemViewModelSugg = new ItemViewModel(messageBoxDataModel, "messageBoxDataModel", "");
         modelList.add(itemViewModelSrc);
-        modelList.add(itemViewModelSugg);
+        //modelList.add(itemViewModelSugg);
         for(int i = 0; i < itemList.size(); i++) {
             //Actual implementation : Parse json object
             PhoneInfoDisplayCard phoneInfoDisplayCard = itemList.get(i);

@@ -15,7 +15,7 @@ public class ItemTypeToLayoutMap {
         {
             put("PhoneInfoDisplayCard", R.layout.phone_info_diplaycard_tile);
             put("searchpageDataModel", R.layout.search_layout_2nd_page);
-            put("suggestionDataModel",R.layout.suggestion);
+            put("MessageBoxDisplayCard",R.layout.single_button_message_box_layout);
         }
     };
 

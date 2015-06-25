@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
+import com.androidworld.antis.AntisApp.models.MessageBoxDataModel;
 import com.androidworld.antis.AntisApp.models.SearchpageDataModel;
 
 /**
@@ -63,6 +64,11 @@ public class SearchPageViewHolder extends BaseViewHolder {
                 @Override
                 public void onClick(View v){
                     removeItem(itemViewModel);
+                    // TODO: the count is to be derived later
+                    String displayText = String.format("there are %s items we found based on your search.", "5");
+                    MessageBoxDataModel messageBoxDataModel = new MessageBoxDataModel(displayText, "Dismiss");
+                    ItemViewModel messageItem = new ItemViewModel(messageBoxDataModel, "MessageBoxDisplayCard", "");
+                    insertItem(messageItem, 0);
                 }
             };
         }
@@ -82,10 +88,4 @@ public class SearchPageViewHolder extends BaseViewHolder {
 
         return this.mCancelButtonListner;
     }
-
-    private final void removeItem(final ItemViewModel item){
-        this.mAdapter.remove(item);
-        this.mAdapter.notifyDataSetChanged();
-    }
-
 }

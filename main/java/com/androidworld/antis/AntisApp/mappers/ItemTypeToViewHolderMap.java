@@ -1,8 +1,9 @@
 package com.androidworld.antis.AntisApp.mappers;
 
+import com.androidworld.antis.AntisApp.fragments.viewholders.MessageBoxViewHolder;
 import com.androidworld.antis.AntisApp.fragments.viewholders.PhoneDisplayCardViewHolder;
 import com.androidworld.antis.AntisApp.fragments.viewholders.SearchPageViewHolder;
-import com.androidworld.antis.AntisApp.models.SuggestionDataModel;
+import com.androidworld.antis.AntisApp.models.MessageBoxDataModel;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
 
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class ItemTypeToViewHolderMap {
         {
             put("PhoneInfoDisplayCard", PhoneDisplayCardViewHolder.class);
             put("searchpageDataModel", SearchPageViewHolder.class);
-            put("suggestionDataModel", SuggestionDataModel.class);
+            put("MessageBoxDisplayCard", MessageBoxViewHolder.class);
         }
     };
 
