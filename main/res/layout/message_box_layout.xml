@@ -1,0 +1,45 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical">
+    <RelativeLayout
+        android:id="@+id/display_popup_section"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/light_yellow"
+        android:padding="10dp">
+
+            <TextView
+                android:text="&#xf007;"
+                android:paddingRight="10dp"
+                android:textSize="40sp"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/user_icon"
+                style="@style/single_line_ellipsize"/>
+
+            <TextView
+                android:id="@+id/display_message"
+                android:layout_toRightOf="@+id/user_icon"
+                android:layout_alignTop="@+id/user_icon"
+                android:text="You have rejected Samsung s6 edge, we will hide this phone going ahead"
+                style="@style/wrap_text_style"/>
+
+            <Button
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="Yes, I Get it"
+                android:textColor="@color/orange"
+                android:id="@+id/button1"
+                style="@style/message_box_button_text_style"/>
+
+            <Button
+                android:layout_toLeftOf="@+id/button1"
+                android:layout_alignBottom="@+id/button1"
+                android:text="Oops, Undo"
+                android:textColor="@color/button_material_light"
+                android:id="@+id/button2"
+                style="@style/message_box_button_text_style"/>
+        </RelativeLayout>
+</LinearLayout>

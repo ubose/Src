@@ -1,8 +1,6 @@
 package com.androidworld.antis.AntisApp.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,10 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -23,23 +19,20 @@ import android.widget.TextView;
 import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.fragments.GridViewFragment;
 import com.androidworld.antis.AntisApp.fragments.IFragment;
-import com.androidworld.antis.AntisApp.fragments.ItemViewFragment;
 import com.androidworld.antis.AntisApp.models.HomePageDataModel;
 import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.ProductDisplayCard;
 import com.androidworld.antis.AntisApp.models.TrendingProductModel;
 import com.androidworld.antis.AntisApp.services.NetworkProvider;
+import com.androidworld.antis.AntisApp.storage.DataStorage;
 import com.androidworld.antis.AntisApp.utilities.ApplicationUtilities;
-import com.squareup.picasso.Picasso;
 
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 
 public class MainActivity extends ActionBarActivity implements IFragment {
 
-    public final static String Search_text="test1.com.example.diganguly.basichomepg1.Message" ;
+    public final static String paramName ="test1.com.example.basichomepg1.Message" ;
 
     protected GridViewFragment mFragment;
 
@@ -79,7 +72,6 @@ public class MainActivity extends ActionBarActivity implements IFragment {
             gridViewFragment.initialize(this.mFragmentDataMap.get(buttonId).productItemsList);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.grid_container, gridViewFragment);
-            //transaction.addToBackStack(null);
             transaction.commit();
         }
     }
@@ -91,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements IFragment {
             this.mFragment = new GridViewFragment();
             this.mFragmentDataMap = new HashMap<>();
             HomePageDataModel homePageDataModel = (HomePageDataModel) model;
-            setContentView(R.layout.activity_home_pg);
+            setContentView(R.layout.home_activity_layout);
 
             //inflate search box
             AutoCompleteTextView act = (AutoCompleteTextView) findViewById(R.id.inputSearch);
@@ -102,8 +94,8 @@ public class MainActivity extends ActionBarActivity implements IFragment {
                 @Override
                 public void onClick(View v) {
                     EditText ed = (EditText) findViewById(R.id.inputSearch);
-                    String S_text = ed.getText() == null ? "" : ed.getText().toString();
-                    customsearch(S_text);
+                    String searchText = ed.getText() == null ? "" : ed.getText().toString();
+                    navigateToActivity(searchText, ItemListActivity.class);
                 }
             });
 
@@ -148,7 +140,12 @@ public class MainActivity extends ActionBarActivity implements IFragment {
                         ImageView imageView = (ImageView) productLayout.findViewById(R.id.product_image);
                         ApplicationUtilities.setImageView(this, imageView, productDisplayCard.productImage.src);
                     }
-
+                    productLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            navigateToActivity("android_mobiles", ItemListActivity.class);
+                        }
+                    });
                     linearLayout.addView(productLayout);
                 }
             }
@@ -176,19 +173,16 @@ public class MainActivity extends ActionBarActivity implements IFragment {
         }
     }
 
-    public void customsearch(String S_text){
-
-        Intent intent = new Intent(this, ItemListActivity.class);
-
-        intent.putExtra(Search_text,S_text);
+    public void navigateToActivity(String paramValue, Class activityClass){
+        Intent intent = new Intent(this, activityClass);
+        intent.putExtra(paramName, paramValue);
         startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home_pg, menu);
-
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -200,8 +194,9 @@ public class MainActivity extends ActionBarActivity implements IFragment {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_reset) {
+            DataStorage dataStorage = DataStorage.getInstance();
+            dataStorage.resetLocalData();
         }
 
         return super.onOptionsItemSelected(item);

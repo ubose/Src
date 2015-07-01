@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,26 +15,20 @@
 
         <TextView
             android:id="@+id/phone_count"
-            android:background="@color/orange"
-            android:textStyle="bold"
-            android:textColor="@color/white"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:text=""
             android:textSize="@dimen/abc_action_bar_default_height_material"
             android:gravity="center_horizontal|bottom"
+            style="@style/itemview_page_product_count_display_style"
             />
         <TextView
             android:id="@+id/phone_display_text"
             android:layout_below="@+id/phone_count"
             android:layout_width="100dp"
             android:layout_height="32dp"
-            android:background="@color/orange"
-            android:text=""
             android:gravity="center_horizontal|top"
-            android:textAllCaps="true"
             android:textSize="17dp"
-            android:textColor="@color/white"/>
+            style="@style/itemview_page_product_count_display_style"/>
         </RelativeLayout>
 
         <RelativeLayout

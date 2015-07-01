@@ -1,5 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:http="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
@@ -16,36 +16,21 @@
 
             <TextView
                 android:id="@+id/heading_text1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="HOW CAN I HELP YOU?"
-                android:textAllCaps="true"
-                android:textColor="@color/orange"/>
+                style="@style/home_page_header_style"
+                android:text="HOW CAN I HELP YOU?" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
-                >
+                android:layout_gravity="center_horizontal">
                 <AutoCompleteTextView
                     android:layout_width="200dp"
                     android:layout_height="40dp"
                     android:id="@+id/inputSearch"
                     android:hint="Search products..."
-                    android:inputType="textVisiblePassword"
-                    android:gravity="bottom"
-                    android:outlineProvider="background"
-                    android:password="false"
-                    android:phoneNumber="false"
-                    android:selectAllOnFocus="true"
-                    android:singleLine="false"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:dropDownWidth="wrap_content"
-                    android:popupBackground="@color/white"
-                    />
+                    style="@style/home_page_search_box_style"/>
                 <ImageView
                     android:id="@+id/search_icon"
                     android:layout_height="30dp"
@@ -56,11 +41,8 @@
             </LinearLayout>
             <TextView
                 android:id="@+id/heading_text2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAllCaps="true"
-                android:text="START OFF WHERE YOU LEFT"
-                android:textColor="@color/orange"/>
+                style="@style/home_page_header_style"
+                android:text="START OFF WHERE YOU LEFT" />
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
@@ -83,11 +65,9 @@
 
             <TextView
                 android:id="@+id/heading_text3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:text="BROWSE"
-                android:textAllCaps="true"
-                android:textColor="@color/orange"/>
+                style="@style/home_page_header_style" />
+
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

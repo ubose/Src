@@ -14,7 +14,7 @@ public class ItemTypeToLayoutMap {
     public static final Map<String, Integer> ITEM_TYPE_TO_LAYOUT_MAP = new HashMap<String, Integer>() {
         {
             put("PhoneInfoDisplayCard", R.layout.phone_info_diplaycard_tile);
-            put("searchpageDataModel", R.layout.search_layout_2nd_page);
+            put("searchpageDataModel", R.layout.search_product_card_layout);
             put("MessageBoxDisplayCard",R.layout.single_button_message_box_layout);
         }
     };

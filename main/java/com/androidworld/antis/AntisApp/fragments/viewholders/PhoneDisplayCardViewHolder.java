@@ -13,6 +13,7 @@ import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.enums.ViewItemState;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.models.PhoneInfoDisplayCard;
+import com.androidworld.antis.AntisApp.storage.DataStorage;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
 
 import java.util.ArrayList;
@@ -50,9 +51,9 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
 
     private LinearLayout mWarningMessageLayout;
 
-    private View.OnClickListener mOnSaveClickListner;
+    private DataStorage mDataStorage;
 
-    private View.OnClickListener mOnRejectClickListner;
+    private String mItemId;
 
     public PhoneDisplayCardViewHolder(View view) {
         if(view != null) {
@@ -67,6 +68,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
             this.mRejectButton = (ToggleButton) view.findViewById(R.id.reject_button);
             this.mCompareButton = (Button) view.findViewById(R.id.compare_button);
             this.mView = view;
+            this.mDataStorage = DataStorage.getInstance();
         }
     }
 
@@ -86,6 +88,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
             this.mFont = Typeface.createFromAsset( this.mContext.getAssets(), "fontawesome-webfont.ttf" );
         }
 
+        this.mItemId = ((PhoneInfoDisplayCard) itemViewModel.item).productId;
         ViewItemState itemState = itemViewModel.viewItemState;
         removeOverlayLayouts();
         switch(itemState) {
@@ -154,24 +157,23 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
     }
 
     private View.OnClickListener getmOnSaveClickListner(final ItemViewModel itemViewModel){
-        //if(this.mOnSaveClickListner == null) {
-            return new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToggleButton toggleButton = (ToggleButton) v;
-                    boolean checked = toggleButton.isChecked();
-                    if (!checked) {
-                        itemViewModel.viewItemState = ViewItemState.SAVED;
-                    } else {
-                        itemViewModel.viewItemState = ViewItemState.NONE;
-                    }
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            ToggleButton toggleButton = (ToggleButton) v;
+            boolean checked = toggleButton.isChecked();
+            if (!checked) {
+                itemViewModel.viewItemState = ViewItemState.SAVED;
+                mDataStorage.writeToSavedItems(mItemId);
+                mDataStorage.removeFromDeletedItems(mItemId);
+            } else {
+                itemViewModel.viewItemState = ViewItemState.NONE;
+                mDataStorage.removeFromSavedItems(mItemId);
+            }
 
-                    notifyDatasetChanged();
-                }
-            };
-        //}
-
-        //return mOnSaveClickListner;
+            notifyDatasetChanged();
+            }
+        };
     }
 
     private void notifyDatasetChanged(){
@@ -180,24 +182,21 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
 
     private View.OnClickListener getmOnRejectClickListner(final ItemViewModel itemViewModel){
         this.mRejectButton.setTypeface(this.mFont);
-       // if(this.mOnRejectClickListner == null) {
-            return new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ToggleButton toggleButton = (ToggleButton) v;
-                    boolean isChecked = toggleButton.isChecked();
-                    if (!isChecked) {
-                        itemViewModel.viewItemState = ViewItemState.INTERMEDIATE;
-                    } else {
-                        itemViewModel.viewItemState = ViewItemState.NONE;
-                    }
-
-                    notifyDatasetChanged();
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToggleButton toggleButton = (ToggleButton) v;
+                boolean isChecked = toggleButton.isChecked();
+                if (!isChecked) {
+                    itemViewModel.viewItemState = ViewItemState.INTERMEDIATE;
+                } else {
+                    itemViewModel.viewItemState = ViewItemState.NONE;
+                    mDataStorage.removeFromDeletedItems(mItemId);
                 }
-            };
-        //}
 
-        //return mOnRejectClickListner;
+                notifyDatasetChanged();
+            }
+        };
     }
 
     private void setIgnoreButton(final ItemViewModel itemViewModel) {
@@ -218,7 +217,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
 
 
         if(this.mWarningMessageLayout == null) {
-            this.mWarningMessageLayout = (LinearLayout) View.inflate(this.mContext, R.layout.message_popup_layout, null);
+            this.mWarningMessageLayout = (LinearLayout) View.inflate(this.mContext, R.layout.message_box_layout, null);
             Button button = (Button) this.mWarningMessageLayout.findViewById(R.id.button1);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -226,6 +225,8 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
                     removeWarningMessageViews();
                     itemViewModel.viewItemState = ViewItemState.REJECTED;
                     removeItem(itemViewModel);
+                    mDataStorage.writeToDeletedItems(mItemId);
+                    mDataStorage.removeFromSavedItems(mItemId);
                 }
             });
             button = (Button) this.mWarningMessageLayout.findViewById(R.id.button2);
@@ -236,6 +237,7 @@ public class PhoneDisplayCardViewHolder extends BaseViewHolder {
                     itemViewModel.viewItemState = ViewItemState.NONE;
                     toggleButton.setTextColor(mContext.getResources().getColor(R.color.gray));
                     toggleButton.setChecked(true);
+                    mDataStorage.removeFromDeletedItems(mItemId);
                 }
             });
 

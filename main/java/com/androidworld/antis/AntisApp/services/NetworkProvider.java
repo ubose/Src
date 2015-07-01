@@ -82,8 +82,8 @@ public class NetworkProvider extends AsyncTask<String, Void, String> {
         try {
             URL url = new URL(myurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(3000);
+            conn.setConnectTimeout(3000);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             // Starts the query

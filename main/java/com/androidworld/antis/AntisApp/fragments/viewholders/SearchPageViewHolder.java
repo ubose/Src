@@ -12,7 +12,7 @@ import com.androidworld.antis.AntisApp.models.MessageBoxDataModel;
 import com.androidworld.antis.AntisApp.models.SearchpageDataModel;
 
 /**
- * Created by diganguly on 6/24/2015.
+ * Created by Utsab Bose on 6/24/2015.
  */
 public class SearchPageViewHolder extends BaseViewHolder {
 

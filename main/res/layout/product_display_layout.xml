@@ -35,92 +35,98 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:padding="10dp"
         >
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/save_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4"
-                android:textStyle="bold"
-                android:textColor="@color/orange"
-                android:textSize="24sp"
-                android:gravity="center"
-                android:paddingRight="8dp"/>
+            android:orientation="vertical"
 
-            <TextView
-                android:id="@+id/save_display_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="saved"
-                android:layout_gravity="center"
-                android:textColor="@color/orange"
-                android:textSize="16sp"
-                android:gravity="center"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_gravity="left"
             >
-            <TextView
-                android:id="@+id/reject_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:textStyle="bold"
-                android:textColor="@color/orange"
-                android:textSize="24sp"
-                android:gravity="center"
-                android:paddingRight="8dp" />
 
-            <TextView
-                android:id="@+id/reject_display_text"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="rejected"
-                android:textColor="@color/orange"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                />
-        </LinearLayout>
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/filters_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:textStyle="bold"
-                android:textColor="@color/orange"
-                android:textSize="24sp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:paddingRight="8dp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/save_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textStyle="bold"
+                    android:textColor="@color/orange"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:paddingRight="8dp"/>
 
-            <TextView
-                android:id="@+id/filters_display_text"
+                <TextView
+                    android:id="@+id/save_display_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="saved"
+                    android:layout_gravity="center"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="filters"
-                android:textColor="@color/orange"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                />
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/reject_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textStyle="bold"
+                    android:textColor="@color/orange"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:paddingRight="8dp" />
+
+                <TextView
+                    android:id="@+id/reject_display_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rejected"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/filters_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textStyle="bold"
+                    android:textColor="@color/orange"
+                    android:textSize="24sp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:paddingRight="8dp" />
+
+                <TextView
+                    android:id="@+id/filters_display_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="filters"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     </LinearLayout>

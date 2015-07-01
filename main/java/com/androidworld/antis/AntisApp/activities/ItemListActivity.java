@@ -1,10 +1,9 @@
 package com.androidworld.antis.AntisApp.activities;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +18,11 @@ import com.androidworld.antis.AntisApp.fragments.ItemViewFragment;
 import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.ProductListDataModel;
 import com.androidworld.antis.AntisApp.services.NetworkProvider;
+import com.androidworld.antis.AntisApp.storage.DataStorage;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
 
-import org.w3c.dom.Text;
 
-
-public class ItemListActivity extends FragmentActivity implements IFragment {
+public class ItemListActivity extends ActionBarActivity implements IFragment {
 
     protected ItemViewFragment mFragment;
 
@@ -34,9 +32,9 @@ public class ItemListActivity extends FragmentActivity implements IFragment {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-            String query= intent.getStringExtra(MainActivity.Search_text);
+            String query= intent.getStringExtra(MainActivity.paramName);
             if(StringUtilities.isNullOrWhitespace(query) || !query.contains("android")) {
-                return;
+                setContentView(R.layout.error_page_layout);
             }
 
         setContentView(R.layout.loading_page_layout);
@@ -52,7 +50,7 @@ public class ItemListActivity extends FragmentActivity implements IFragment {
 
         this.mFragment = new ItemViewFragment();
         if(model instanceof ProductListDataModel) {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.itemview_activity_layout);
             ProductListDataModel productListDataModel = (ProductListDataModel) model;
 
             TextView textView = (TextView) findViewById(R.id.phone_count);
@@ -101,9 +99,9 @@ public class ItemListActivity extends FragmentActivity implements IFragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_reset) {
+            DataStorage dataStorage = DataStorage.getInstance();
+            dataStorage.resetLocalData();
         }
 
         return super.onOptionsItemSelected(item);

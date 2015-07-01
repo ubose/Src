@@ -5,6 +5,7 @@ import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.Image;
 import com.androidworld.antis.AntisApp.models.ProductDisplayCard;
 import com.androidworld.antis.AntisApp.models.TrendingProductModel;
+import com.androidworld.antis.AntisApp.storage.DataStorage;
 
 import org.json.JSONObject;
 
@@ -40,15 +41,15 @@ public class HomePageDataTransformer implements IGenerator{
                 "http://www.slrphotographyguide.com/images/dslr-camera.jpg", "since, June 15" ));
         homePageDataModel.productDisplayCardList.add(getModel("mobile_phone", "8", "Filters", "5", "Rejected", "6", "Saved",
                 "http://newsroom.electrolux.com/uk/wp-content/common/photos_uk/zanussi-washing-machine-zwf14791w-ls.jpg", "since, June 15" ));
-        homePageDataModel.productDisplayCardList.add(getModel("mobile_phone", "8", "Filters", "5", "Rejected", "6", "Saved",
+        homePageDataModel.productDisplayCardList.add(getModel("product1", "8", "Filters", "5", "Rejected", "6", "Saved",
                 "http://absocold.com/wp-content/uploads/all-refrigerator-ARD492AS-full.jpg", "since, June 15" ));
-        homePageDataModel.productDisplayCardList.add(getModel("mobile_phone", "8", "Filters", "5", "Rejected", "6", "Saved",
+        homePageDataModel.productDisplayCardList.add(getModel("product2", "8", "Filters", "5", "Rejected", "6", "Saved",
                 "https://upload.wikimedia.org/wikipedia/commons/4/47/Ipod_nano_in_palm.jpg", "since, June 15" ));
-        homePageDataModel.productDisplayCardList.add(getModel("mobile_phone", "8", "Filters", "5", "Rejected", "6", "Saved",
+        homePageDataModel.productDisplayCardList.add(getModel("product3", "8", "Filters", "5", "Rejected", "6", "Saved",
                 "http://cnet4.cbsistatic.com/hub/i/r/2012/08/09/09b73cf7-67c3-11e3-a665-14feb5ca9861/thumbnail/770x433/0a2cf60d5357efaef64a4cd687d36f8b/parrot_headphones_35409771_04.JPG", "since, June 15" ));
-        homePageDataModel.productDisplayCardList.add(getModel("mobile_phone", "8", "Filters", "5", "Rejected", "6", "Saved",
+        homePageDataModel.productDisplayCardList.add(getModel("product4", "8", "Filters", "5", "Rejected", "6", "Saved",
                 "http://www.peoplepeople.se/wp-content/uploads/2012/10/Transparent_Speaker_Floor_People_People.jpg", "since, June 15" ));
-        homePageDataModel.productDisplayCardList.add(getModel("mobile_phone", "8", "Filters", "5", "Rejected", "6", "Saved",
+        homePageDataModel.productDisplayCardList.add(getModel("product5", "8", "Filters", "5", "Rejected", "6", "Saved",
                 "http://i2.cdnds.net/14/09/618x394/tech-samsung-gear-fit-01.jpg", "since, June 15" ));
 
         homePageDataModel.trendingProductModelList = new ArrayList<>();
@@ -103,6 +104,20 @@ public class HomePageDataTransformer implements IGenerator{
         productDisplayCard.saveDisplayText = s7;
         productDisplayCard.productImage = new Image(s8);
         productDisplayCard.imageDisplayText = s9;
+
+        if(s1.equals("mobile_phones")) {
+            DataStorage dataStorage = DataStorage.getInstance();
+            ArrayList<String> savedItems = dataStorage.readSavedItems();
+            ArrayList<String> deletedItems = dataStorage.readDeletedItems();
+            if(savedItems != null) {
+                productDisplayCard.saveCount = "" + savedItems.size();
+            }
+
+            if(deletedItems != null) {
+                productDisplayCard.rejectCount = "" + deletedItems.size();
+            }
+        }
+
         return productDisplayCard;
     }
 }

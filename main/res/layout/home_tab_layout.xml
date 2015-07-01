@@ -1,4 +1,5 @@
-<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -6,16 +7,10 @@
         android:id="@+id/tab_button"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:gravity="center"
         android:text="DEALS OF THE DAY"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="12sp"
-        android:textAllCaps="true"
-        android:textColor="@color/blue"
         android:onClick="loadFragment"
         android:layout_marginRight="4dp"
-        />
+        style="@style/home_page_tab_text_style"/>
     <ImageView
         android:id="@+id/tab_indicator"
         android:layout_width="120dp"

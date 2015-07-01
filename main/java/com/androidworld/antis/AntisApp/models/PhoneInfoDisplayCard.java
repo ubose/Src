@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class PhoneInfoDisplayCard extends BaseModel {
 
 
+    public String productId;
+
     public Image phoneImage;
 
     public String priceTag;

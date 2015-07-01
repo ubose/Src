@@ -8,13 +8,7 @@
     <style name="base_layout_style">
     </style>
     <style name="filter_dialog">
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:windowFullscreen">true</item>-->
-        <!--<item name="android:windowIsFloating">false</item>-->
-        <!--<item name="android:background">@color/white</item>-->
-        <!--<item name="android:windowContentOverlay">@android:drawable/title_bar</item>-->
         <item name="android:backgroundDimEnabled">true</item>
-
     </style>
 
     <style name="filter_dialog_theme" parent="@android:style/Theme.Panel">
@@ -28,4 +22,85 @@
         <item name="android:windowExitAnimation">@anim/anim_out</item>
     </style>
 
+    <!-- Text view styles -->
+    <style name="wrap_text_style" parent="base_layout_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="single_line_ellipsize" parent="wrap_text_style">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="single_line_all_caps" parent="single_line_ellipsize">
+        <item name="android:maxLines">1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="single_line_all_caps_bold" parent="single_line_all_caps">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="home_page_header_style" parent="single_line_all_caps">
+        <item name="android:textColor">@color/orange</item>
+    </style>
+    <style name="home_page_search_box_style" parent="single_line_ellipsize">
+        <item name="android:popupBackground">@color/white</item>
+        <item name="android:password">false</item>
+        <item name="android:phoneNumber">false</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+    <style name="itemview_page_product_count_display_style" parent="single_line_all_caps_bold">
+        <item name="android:background">@color/orange</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="home_page_tab_text_style" parent="single_line_all_caps_bold">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="message_box_button_text_style" parent="single_line_all_caps_bold">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+    <style name="phone_card_price_tag_style" parent="single_line_all_caps_bold">
+        <item name="android:layout_height">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:background">@color/orange</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="phone_card_header_style" parent="single_line_all_caps_bold">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:maxLength">20</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:background">@color/silver</item>
+    </style>
+    <style name="phone_card_feature_item_style" parent="single_line_all_caps">
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+    <style name="phone_card_review_text_style" parent="single_line_all_caps_bold">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

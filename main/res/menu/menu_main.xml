@@ -1,7 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity"
-    >
-    <item android:id="@+id/action_settings" android:title="@string/faq"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".HomePGActivity">
+    <item android:id="@+id/action_faq" android:title="@string/faq"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_help" android:title="@string/helpline"
+        android:orderInCategory="100" app:showAsAction="never"/>
+    <item android:id="@+id/action_reset" android:title="@string/reset"
+        android:orderInCategory="100" app:showAsAction="never"/>
 </menu>

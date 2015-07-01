@@ -1,11 +1,13 @@
 package com.androidworld.antis.AntisApp.models.transformers;
 
+import com.androidworld.antis.AntisApp.enums.ViewItemState;
 import com.androidworld.antis.AntisApp.models.IModel;
 import com.androidworld.antis.AntisApp.models.Image;
 import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.models.PhoneInfoDisplayCard;
 import com.androidworld.antis.AntisApp.models.SearchpageDataModel;
 import com.androidworld.antis.AntisApp.models.MessageBoxDataModel;
+import com.androidworld.antis.AntisApp.storage.DataStorage;
 
 import org.json.JSONObject;
 
@@ -24,7 +26,9 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
 
     public static ArrayList<ItemViewModel> generateDummyModel(JSONObject object) {
 
-
+        DataStorage dataStorage = DataStorage.getInstance();
+        ArrayList<String> deletedItems = dataStorage.readDeletedItems();
+        ArrayList<String> savedItems = dataStorage.readSavedItems();
         ArrayList<PhoneInfoDisplayCard> itemList = new ArrayList<PhoneInfoDisplayCard>();
         //SearchPageDataModel
         SearchpageDataModel searchpageDataModel = new SearchpageDataModel();
@@ -32,10 +36,6 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
         searchpageDataModel.message = searchpageDataModel.userName +", welcome to Antis buying experience. We help you to make informed choices.To Start with do you have any specific model in mind";
         searchpageDataModel.firstButtonText = "Nothing specific";
         searchpageDataModel.secondButtonText = "Yes, continue";
-
-        //Suggestion page
-        //MessageBoxDataModel messageBoxDataModel = new MessageBoxDataModel();
-        //messageBoxDataModel.message= "there are %s items we found based on your search.";
 
         //samsung s6
 
@@ -73,23 +73,21 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
 
         ArrayList<ItemViewModel> modelList = new ArrayList<ItemViewModel>();
         ItemViewModel itemViewModelSrc = new ItemViewModel(searchpageDataModel, "searchpageDataModel", "");
-        //ItemViewModel itemViewModelSugg = new ItemViewModel(messageBoxDataModel, "messageBoxDataModel", "");
         modelList.add(itemViewModelSrc);
-        //modelList.add(itemViewModelSugg);
+
         for(int i = 0; i < itemList.size(); i++) {
             //Actual implementation : Parse json object
             PhoneInfoDisplayCard phoneInfoDisplayCard = itemList.get(i);
-            //phoneInfoDisplayCard.priceTag = "Rs 60,000";
-            //phoneInfoDisplayCard.headingText = "Samsung Galaxy S6 Edge";
+            phoneInfoDisplayCard.productId = "phone_android_" + (i+1);
             phoneInfoDisplayCard.featureHeadingText = "Why me?";
             phoneInfoDisplayCard.userReviewHeadingText = "User Reviews(500)";
             phoneInfoDisplayCard.rating = "4.2";
-            phoneInfoDisplayCard.featureList = new ArrayList<String>();
+            phoneInfoDisplayCard.featureList = new ArrayList<>();
             phoneInfoDisplayCard.featureList.add("13mp Camera");
             phoneInfoDisplayCard.featureList.add("Wireless Charging");
             phoneInfoDisplayCard.featureList.add("5.5\" big screen ");
             phoneInfoDisplayCard.featureList.add("light weight");
-            phoneInfoDisplayCard.userReviewList = new ArrayList<String>();
+            phoneInfoDisplayCard.userReviewList = new ArrayList<>();
             phoneInfoDisplayCard.userReviewList.add("awesome screen");
             phoneInfoDisplayCard.userReviewList.add("lighting fast");
             phoneInfoDisplayCard.userReviewList.add("not waterproof");
@@ -99,7 +97,16 @@ public class PhoneInfoDisplayCardGenerator implements IGenerator {
             //phoneInfoDisplayCard.phoneImage = phoneInfoDisplayCard.phoneImage;
 
             ItemViewModel itemViewModel = new ItemViewModel(phoneInfoDisplayCard, "PhoneInfoDisplayCard", "");
-            modelList.add(itemViewModel);
+
+            if(savedItems != null && savedItems.contains(phoneInfoDisplayCard.productId)) {
+                itemViewModel.viewItemState = ViewItemState.SAVED;
+            }
+
+            if(deletedItems != null && deletedItems.contains(phoneInfoDisplayCard.productId)) {
+                itemViewModel.viewItemState = ViewItemState.REJECTED;
+            } else {
+                modelList.add(itemViewModel);
+            }
         }
 
         return modelList;

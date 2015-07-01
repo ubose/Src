@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.androidworld.antis.AntisApp.R;
 import com.androidworld.antis.AntisApp.fragments.adapters.GenericListAdapter;
 import com.androidworld.antis.AntisApp.models.Image;
+import com.androidworld.antis.AntisApp.models.ItemViewModel;
 import com.androidworld.antis.AntisApp.utilities.ApplicationUtilities;
 import com.androidworld.antis.AntisApp.utilities.StringUtilities;
 import com.squareup.picasso.Picasso;
@@ -59,6 +60,16 @@ public class BaseViewHolder {
 
     public void setButtonView(TextView viewHolderItem, CharSequence textValue){
         viewHolderItem.setText(textValue);
+    }
+
+    protected final void removeItem(final ItemViewModel itemViewModel){
+        this.mAdapter.remove(itemViewModel);
+        this.mAdapter.notifyDataSetChanged();
+    }
+
+    protected final void insertItem(final ItemViewModel itemViewModel, int index) {
+        this.mAdapter.insert(itemViewModel,index);
+        this.mAdapter.notifyDataSetChanged();
     }
 
     //http://3.bp.blogspot.com/-JqKMEYHEfjY/UfvZcNdwbII/AAAAAAAAM2c/JDPO2Uke1LU/s1600/ScreenLock.png
